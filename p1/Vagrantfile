@@ -1,0 +1,41 @@
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+SERVER_IP   = "192.168.56.110"
+WORKER_IP   = "192.168.56.111"
+LOGIN       = "facarval"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bookworm64"
+  config.vm.provider "libvirt"
+
+  # ─── SSH: allow passwordless login ───────────────────────────────────────
+  config.ssh.insert_key = false
+
+  # ─── Server (controller) ─────────────────────────────────────────────────
+  config.vm.define "#{LOGIN}S" do |server|
+    server.vm.hostname = "#{LOGIN}S"
+    server.vm.network "private_network", ip: SERVER_IP
+
+    server.vm.provider "libvirt" do |lv|
+      lv.memory = 1024
+      lv.cpus   = 1
+    end
+
+    server.vm.provision "shell", path: "scripts/server.sh",
+      env: { "SERVER_IP" => SERVER_IP }
+  end
+
+  # ─── ServerWorker (agent) ─────────────────────────────────────────────────
+  config.vm.define "#{LOGIN}SW" do |worker|
+    worker.vm.hostname = "#{LOGIN}SW"
+    worker.vm.network "private_network", ip: WORKER_IP
+
+    worker.vm.provider "libvirt" do |lv|
+      lv.memory = 1024
+      lv.cpus   = 1
+    end
+
+    worker.vm.provision "shell", path: "scripts/worker.sh",
+      env: { "SERVER_IP" => SERVER_IP, "WORKER_IP" => WORKER_IP }
+  end
+end

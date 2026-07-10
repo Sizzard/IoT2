@@ -1,0 +1,24 @@
+ENV['VAGRANT_NO_PARALLEL'] = 'yes'
+
+SERVER_IP = "192.168.56.110"
+LOGIN     = "facarval"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/bookworm64"
+  config.vm.provider "libvirt"
+
+  config.ssh.insert_key = false
+
+  config.vm.define "#{LOGIN}S" do |server|
+    server.vm.hostname = "#{LOGIN}S"
+    server.vm.network "private_network", ip: SERVER_IP
+
+    server.vm.provider "libvirt" do |lv|
+      lv.memory = 2048
+      lv.cpus   = 1
+    end
+
+    server.vm.provision "shell", path: "scripts/server.sh",
+      env: { "SERVER_IP" => SERVER_IP }
+  end
+end

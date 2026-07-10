@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-one
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Welcome from app 1</title>
+      </head>
+      <body>
+        <p>This is Deployment One</p>
+      </body>
+    </html>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-two
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Welcome from app 2</title>
+      </head>
+      <body>
+        <p>This is Deployment Two</p>
+      </body>
+    </html>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-three
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Welcome from app 3</title>
+      </head>
+      <body>
+        <p>This is Deployment Three</p>
+      </body>
+    </html>
+
