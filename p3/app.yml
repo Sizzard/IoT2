@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wil42
+spec:
+  destination:
+    namespace: dev
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      enabled: true
+  source:
+    path: dev
+    repoURL: https://github.com/Sizzard/IoT-Application/
+    targetRevision: HEAD
+  sources: []
+  project: default
