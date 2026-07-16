@@ -9,7 +9,7 @@ swapon /swapfile
 echo '/swapfile none swap sw 0 0' >> /etc/fstab
 
 echo "==> Installing dependencies..."
-apt-get update -y
+apt-get update && apt-get upgrade -y
 apt-get install -y curl
 
 echo "==> Installing K3s in server mode..."

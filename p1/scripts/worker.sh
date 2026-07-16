@@ -13,7 +13,7 @@ swapon /swapfile
 echo '/swapfile none swap sw 0 0' >> /etc/fstab
 
 echo "==> [Worker] Installing dependencies..."
-apt-get update -qq
+apt-get update && apt-get upgrade -y
 apt-get install -y curl
 
 echo "==> [Worker] Waiting for server token..."

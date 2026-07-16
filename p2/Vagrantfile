@@ -4,7 +4,7 @@ SERVER_IP = "192.168.56.110"
 LOGIN     = "facarval"
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian/bookworm64"
+  config.vm.box = "debian/trixie64"
   config.vm.provider "libvirt"
 
   config.ssh.insert_key = false
