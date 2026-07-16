@@ -9,7 +9,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 #####
 
-k3d cluster create argocd --port "30088:30088@server:0"
+k3d cluster create argocd --port "8888:30088@server:0"
 
 kubectl create namespace argocd
 kubectl create namespace dev
@@ -22,4 +22,4 @@ kubectl apply -n argocd -f app.yml
 
 # Password command:                                                       kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d > password.txt && echo "$(cat password.txt)"
 
-# Connection command:                                                     curl http://localhost:30088
+# Connection command:                                                     curl http://localhost:8888
